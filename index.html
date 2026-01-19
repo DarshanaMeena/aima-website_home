@@ -1,0 +1,1255 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AIMA Hero</title>
+
+  <!-- Tailwind -->
+  <script src="https://cdn.tailwindcss.com"></script>
+<!-- icones cdn -->
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <!-- Fonts (close to original) -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;500&display=swap"
+    rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            heading: ['Playfair Display', 'serif'],
+            body: ['Inter', 'sans-serif'],
+          },
+          colors: {
+            gold: '#E6B44A',
+            navy: '#0B4DA2'
+          }
+        }
+      }
+    }
+  </script>
+</head>
+
+<body class="font-body">
+
+  
+<header class="fixed top-0 left-0 w-full z-50
+         backdrop-blur-md
+         bg-white/70
+         border-b border-black/5
+      
+">
+
+  <div class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
+
+    <!-- LEFT : Logo -->
+    <div class="flex items-center gap-3">
+      <img src="assets/AIMA-logo.png"
+           alt="AIMA Logo"
+           class="h-10 sm:h-12 md:h-[60px] w-auto object-contain">
+    </div>
+
+    <!-- CENTER : Menu -->
+    <nav class="hidden lg:flex text-sm max-w-3xl font-medium text-gray-800 text-center">
+      <a href="#" class="hover:text-blue-700">About AIMA</a>
+      <a href="#" class="hover:text-blue-700">Events & Conferences</a>
+      <a href="#" class="hover:text-blue-700">Management Education</a>
+      <a href="#" class="hover:text-blue-700">Testing & Assessment</a>
+      <a href="#" class="hover:text-blue-700">Training & Workshop</a>
+      <a href="#" class="hover:text-blue-700">Membership & Network</a>
+      <a href="#" class="hover:text-blue-700">Knowledge Hub</a>
+    </nav>
+
+    <!-- RIGHT : Icons -->
+    <div class="flex items-center gap-3">
+
+      <!-- Search -->
+      <button class="p-2 rounded-md hover:bg-gray-100">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M21 21L17 17M19 11C19 13.1217 18.1571 15.1566 16.6569 16.6569C15.1566 18.1571 13.1217 19 11 19C8.87827 19 6.84344 18.1571 5.34315 16.6569C3.84285 15.1566 3 13.1217 3 11C3 8.87827 3.84285 6.84344 5.34315 5.34315C6.84344 3.84285 8.87827 3 11 3C13.1217 3 15.1566 3.84285 16.6569 5.34315C18.1571 6.84344 19 8.87827 19 11Z" stroke="black" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+
+      </button>
+
+      <!-- Login -->
+<button
+  class="hidden md:flex flex-col items-center justify-center
+         bg-[#0D478B] text-white
+         px-3 py-2 rounded-md
+          leading-tight
+         hover:bg-blue-600 transition h-[50px] w-[48px]">
+
+  <span class="text-lg leading-none">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M3.5 7C3.5 5.67392 4.02678 4.40215 4.96447 3.46447C5.90215 2.52678 7.17392 2 8.5 2C9.82608 2 11.0979 2.52678 12.0355 3.46447C12.9732 4.40215 13.5 5.67392 13.5 7C13.5 8.32608 12.9732 9.59785 12.0355 10.5355C11.0979 11.4732 9.82608 12 8.5 12C7.17392 12 5.90215 11.4732 4.96447 10.5355C4.02678 9.59785 3.5 8.32608 3.5 7ZM5 14C3.67392 14 2.40215 14.5268 1.46447 15.4645C0.526784 16.4021 0 17.6739 0 19L0 21H17V19C17 17.6739 16.4732 16.4021 15.5355 15.4645C14.5979 14.5268 13.3261 14 12 14H5ZM24 21H19V19C19 17.041 18.196 15.27 16.9 14H19C19.6566 14 20.3068 14.1293 20.9134 14.3806C21.52 14.6319 22.0712 15.0002 22.5355 15.4645C22.9998 15.9288 23.3681 16.48 23.6194 17.0866C23.8707 17.6932 24 18.3434 24 19V21ZM15.5 12C14.8896 12.0003 14.2843 11.8888 13.714 11.671C14.8666 10.3885 15.5029 8.72432 15.5 7C15.5027 5.27555 14.866 3.61133 13.713 2.329C14.398 2.0674 15.1322 1.95968 15.8636 2.01347C16.5949 2.06727 17.3054 2.28127 17.9448 2.6403C18.5842 2.99933 19.1368 3.49461 19.5634 4.09102C19.99 4.68744 20.2803 5.3704 20.4135 6.09148C20.5468 6.81257 20.5198 7.55414 20.3344 8.26364C20.1491 8.97313 19.81 9.63317 19.3411 10.197C18.8723 10.7608 18.2851 11.2146 17.6213 11.5262C16.9575 11.8378 16.2333 11.9995 15.5 12Z" fill="#F6F8FB"/>
+</svg>
+
+  </span>
+  <span class="mt-0.5 text-[6px]">FOR MEMBERS</span>
+
+</button>
+
+
+      <!-- Resources -->
+     <button
+  class="hidden md:flex flex-col items-center justify-center
+         bg-[#0D478B] text-white
+         px-3 py-2 rounded-md
+          leading-tight
+         hover:bg-blue-600 transition h-[50px] w-[48px]">
+
+  <span class="text-lg leading-none">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M21.2372 5.28845L12.2372 2.28845C12.0832 2.23712 11.9168 2.23712 11.7628 2.28845L2.76281 5.28845C2.61347 5.33823 2.48358 5.43374 2.39155 5.56145C2.29951 5.68916 2.24999 5.84259 2.25 6.00001V13.5C2.25 13.6989 2.32902 13.8897 2.46967 14.0303C2.61032 14.171 2.80109 14.25 3 14.25C3.19891 14.25 3.38968 14.171 3.53033 14.0303C3.67098 13.8897 3.75 13.6989 3.75 13.5V7.04064L6.89906 8.0897C6.0624 9.44139 5.79634 11.0699 6.15931 12.6175C6.52229 14.1652 7.48462 15.5056 8.835 16.3444C7.1475 17.0063 5.68875 18.2034 4.62187 19.8403C4.56639 19.9228 4.52785 20.0155 4.50849 20.113C4.48914 20.2104 4.48936 20.3108 4.50913 20.4082C4.52891 20.5056 4.56785 20.5981 4.62369 20.6804C4.67953 20.7626 4.75116 20.8329 4.83441 20.8872C4.91766 20.9415 5.01087 20.9787 5.10863 20.9967C5.20639 21.0146 5.30674 21.013 5.40386 20.9918C5.50097 20.9706 5.59291 20.9304 5.67433 20.8734C5.75575 20.8163 5.82502 20.7437 5.87813 20.6597C7.29094 18.4922 9.52219 17.25 12 17.25C14.4778 17.25 16.7091 18.4922 18.1219 20.6597C18.2319 20.8232 18.4018 20.9368 18.5949 20.976C18.788 21.0152 18.9888 20.9769 19.1539 20.8692C19.3189 20.7616 19.435 20.5933 19.4769 20.4007C19.5189 20.2082 19.4834 20.0069 19.3781 19.8403C18.3112 18.2034 16.8469 17.0063 15.165 16.3444C16.5141 15.5056 17.4755 14.1661 17.8384 12.6196C18.2013 11.073 17.9361 9.44568 17.1009 8.09438L21.2372 6.71626C21.3866 6.6665 21.5165 6.57101 21.6086 6.44329C21.7006 6.31558 21.7502 6.16214 21.7502 6.0047C21.7502 5.84726 21.7006 5.69381 21.6086 5.5661C21.5165 5.43839 21.3866 5.34289 21.2372 5.29313V5.28845ZM16.5 11.25C16.5002 11.9614 16.3317 12.6628 16.0084 13.2965C15.6851 13.9302 15.2161 14.4782 14.6399 14.8956C14.0638 15.3129 13.3969 15.5877 12.694 15.6975C11.9911 15.8072 11.2722 15.7487 10.5962 15.5267C9.92031 15.3048 9.30663 14.9258 8.80555 14.4208C8.30448 13.9157 7.93028 13.2991 7.71367 12.6214C7.49705 11.9438 7.44419 11.2244 7.55942 10.5224C7.67465 9.82038 7.95469 9.15567 8.37656 8.58282L11.7628 9.70782C11.9168 9.75915 12.0832 9.75915 12.2372 9.70782L15.6234 8.58282C16.1932 9.35535 16.5004 10.2901 16.5 11.25Z" fill="#F5F7FA"/>
+</svg>
+
+  </span>
+  <span class="mt-0.5 text-[6px]">FOR STUDENTS</span>
+
+</button>
+
+     
+      <!-- Hamburger -->
+      <button onclick="toggleMenu()" class="p-2 rounded-md border hover:bg-gray-100">
+        ☰
+      </button>
+
+    </div>
+  </div>
+
+</header>
+
+<!-- MOBILE MENU -->
+<div id="mobileMenu"
+     class="fixed top-[70px] left-0 w-full
+            bg-white/95 backdrop-blur-md
+            border-t border-black/10
+            hidden z-40">
+
+  <nav class="flex flex-col px-6 py-4 gap-4 text-sm font-medium text-gray-800">
+    <a href="#" class="hover:text-blue-700">About AIMA</a>
+    <a href="#" class="hover:text-blue-700">Events & Conferences</a>
+    <a href="#" class="hover:text-blue-700">Management Education</a>
+    <a href="#" class="hover:text-blue-700">Testing & Assessment</a>
+    <a href="#" class="hover:text-blue-700">Training & Workshop</a>
+    <a href="#" class="hover:text-blue-700">Membership & Network</a>
+    <a href="#" class="hover:text-blue-700">Knowledge Hub</a>
+  </nav>
+</div>
+
+
+<section class="relative h-screen pt-24 mt-[80px] ">
+
+  <!-- Background Image -->
+  <img
+    src="assets/hero-bg.png"
+    alt="AIMA Hero"
+    class="absolute inset-0 w-full h-full md:h-[600px] object-cover"
+  />
+
+  <!-- Dark Overlay -->
+  <div class="absolute inset-0 bg-[#0D478B3D] h-full md:h-[600px]"></div>
+
+  <!-- Hero Content -->
+  <div class="relative z-10 h-full flex items-center justify-center text-center px-6">
+
+    <div class="max-w-4xl text-white">
+
+      <!-- Badge -->
+      <div
+        class="inline-flex items-center gap-2 px-5 py-2 border border-white/40 rounded-full text-sm mb-6 bg-[#FFFAEB33]">
+        <span class="w-2 h-2 bg-blue-400 rounded-full "></span>
+        Established 1957 • India's Premier Management Body
+      </div>
+
+      <!-- Heading -->
+      <h1 class="font-heading text-4xl md:text-6xl leading-tight">
+        All India Management
+        <span class="block text-gold">Association</span>
+      </h1>
+
+      <!-- Subheading -->
+      <p class="mt-6 text-lg font-medium">
+        The National Apex Body of Management in India
+      </p>
+
+      <!-- Description -->
+      <p class="mt-4 text-sm md:text-base text-white/80 max-w-3xl mx-auto">
+        The All India Management Association (AIMA) is the apex body of the
+        management profession in India. It works closely with industry,
+        government, academia, and students to advance management practices and
+        leadership excellence.
+      </p>
+
+      <!-- Buttons -->
+      <div class="mt-8 flex flex-wrap justify-center gap-4">
+        <button class="bg-navy px-6 py-3 rounded-md font-medium">
+          PGDM
+        </button>
+        <button class="border border-white px-6 py-3 rounded-md">
+          MAT
+        </button>
+        <button class="border border-white px-6 py-3 rounded-md">
+          Executive Education
+        </button>
+        <button class="border border-white px-6 py-3 rounded-md">
+          Research & Publications
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- 🔍 Bottom Right Floating Search Icon -->
+  <div class="absolute bottom-8 right-8 z-20">
+    <button
+      class="w-12 h-12 rounded-full bg-white text-navy flex items-center justify-center shadow-xl hover:bg-gold hover:text-black transition">
+
+      <svg xmlns="http://www.w3.org/2000/svg"
+           class="h-5 w-5"
+           fill="none"
+           viewBox="0 0 24 24"
+           stroke="currentColor">
+        <path stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M21 21l-4.35-4.35M10 18a8 8 0 100-16 8 8 0 000 16z" />
+      </svg>
+
+    </button>
+  </div>
+
+</section>
+
+<!-- ===== EVENTS SECTION ===== -->
+<section class="bg-white py-16 px-4 md:mt-11">
+  <div class="max-w-7xl mx-auto">
+
+    <!-- Heading -->
+     <div class="flex justify-between">
+<div class="mb-10">
+      <p class="text-xs uppercase tracking-widest text-orange-500 font-medium">
+        Bringing People Together
+      </p>
+      <h2 class="text-3xl md:text-4xl font-heading font-semibold mt-2">
+        Explore our <span class="text-gold">Events</span>
+      </h2>
+    </div>
+    <div>
+      <button class="bg-[#0D478B] text-white rounded px-3 py-2">View All</button>
+    </div>
+     </div>
+    
+
+    <!-- Grid -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+
+      <!-- Card 1 -->
+      <div class="border rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition
+      ">
+        <img src="assets/Event1.png" alt=""
+          class="h-48 w-full object-cover">
+
+        <div class="p-5">
+          <h3 class=" text-xl mb-2">Flagship</h3>
+          <p class="text-sm text-gray-500 mb-4">
+            The standard lorem ipsum passage has been a printer's friend for centuries. Like stock photos today, 
+          </p>
+
+          <a href="#" class="inline-flex items-center gap-2 text-sm font-medium text-navy hover:gap-3 transition-all">
+            Learn More
+            <span class="border rounded-full w-7 h-7 flex items-center justify-center">→</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="border rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition">
+        <img src="assets/Event2.png" alt=""
+          class="h-48 w-full object-cover">
+
+        <div class="p-5">
+          <h3 class=" text-xl mb-2">International</h3>
+          <p class="text-sm text-gray-500 mb-4">
+           The standard lorem ipsum passage has been a printer's friend for centuries. Like stock photos today,  
+          </p>
+
+          <a href="#" class="inline-flex items-center gap-2 text-sm font-medium text-navy hover:gap-3 transition-all">
+            Learn More
+            <span class="border rounded-full w-7 h-7 flex items-center justify-center">→</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="border rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition">
+        <img src="assets/Event3.png" alt=""
+          class="h-48 w-full object-fit ">
+
+        <div class="p-5">
+          <h3 class=" text-xl mb-2">National</h3>
+          <p class="text-sm text-gray-500 mb-4">
+            The standard lorem ipsum passage has been a printer's friend for centuries. Like stock photos today, 
+          </p>
+
+          <a href="#" class="inline-flex items-center gap-2 text-sm font-medium text-navy hover:gap-3 transition-all">
+            Learn More
+            <span class="border rounded-full w-7 h-7 flex items-center justify-center">→</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- All Programs Box -->
+      <div class="border rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition">
+        <img src="assets/Event4.jpg" alt=""
+          class="h-48 w-full object-cover">
+
+        <div class="p-5">
+          <h3 class="text-xl mb-2">Event Calendar</h3>
+          <p class="text-sm text-gray-500 mb-4">
+           The standard lorem ipsum passage has been a printer's friend for centuries. Like stock photos today, 
+          </p>
+
+          <a href="#" class="inline-flex items-center gap-2 text-sm font-medium text-navy hover:gap-3 transition-all">
+            Learn More
+            <span class="border rounded-full w-7 h-7 flex items-center justify-center">→</span>
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section class="relative py-16 px-4">
+
+  <!-- Background -->
+  <div class="absolute inset-0">
+    <img src="assets/upcoming_event.jpg"
+         class="w-full h-full object-cover " />
+    <div class="absolute inset-0  backdrop-blur-sm"></div>
+  </div>
+
+  <!-- Content -->
+  <div class="relative max-w-7xl mx-auto text-center text-white">
+
+    <!-- Heading -->
+    <h2 class="text-2xl md:text-3xl font-heading mb-12">
+      Upcoming <span class="text-gold">Events</span>
+    </h2>
+
+    <!-- Cards -->
+    <div class="grid gap-6
+                grid-cols-1
+                sm:grid-cols-2
+                lg:grid-cols-4">
+
+      <!-- CARD -->
+      <div class="border border-white rounded-2xl p-6
+                   bg-white/5
+                  text-left">
+
+        <!-- Date -->
+        <span class="inline-block px-3 py-1 mb-4
+                     text-xs border border-white/40 rounded-full  backdrop-blur-sm">
+          05–16, 2025
+        </span>
+
+        <!-- Title -->
+        <h3 class="text-sm font-medium mb-4 leading-snug">
+          52nd National Management Convention
+        </h3>
+
+        <!-- Location -->
+        <div class="flex items-center gap-2 text-xs text-white/80">
+          <!-- Location Icon -->
+          <svg xmlns="http://www.w3.org/2000/svg"
+               class="w-4 h-4 text-white"
+               fill="none"
+               viewBox="0 0 24 24"
+               stroke="currentColor">
+            <path stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M12 11c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2z"/>
+            <path stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M12 21s8-4.5 8-10a8 8 0 10-16 0c0 5.5 8 10 8 10z"/>
+          </svg>
+
+          <span class="text-white">Hotel Taj Palace, New Delhi</span>
+        </div>
+      </div>
+
+      <!-- DUPLICATE SAME CARD -->
+       <div class="border border-white rounded-2xl p-6
+                   bg-white/5
+                  text-left">
+
+        <!-- Date -->
+       <span class="inline-block px-3 py-1 mb-4
+                     text-xs border border-white/40 bg-white/20 rounded-full backdrop-blur-md">
+          05–16, 2025
+        </span>
+
+        <!-- Title -->
+        <h3 class="text-sm font-medium mb-4 leading-snug">
+          52nd National Management Convention
+        </h3>
+
+        <!-- Location -->
+        <div class="flex items-center gap-2 text-xs text-white/80">
+          <!-- Location Icon -->
+          <svg xmlns="http://www.w3.org/2000/svg"
+               class="w-4 h-4 text-white"
+               fill="none"
+               viewBox="0 0 24 24"
+               stroke="currentColor">
+            <path stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M12 11c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2z"/>
+            <path stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M12 21s8-4.5 8-10a8 8 0 10-16 0c0 5.5 8 10 8 10z"/>
+          </svg>
+
+          <span class="text-white">Hotel Taj Palace, New Delhi</span>
+        </div>
+      </div>
+
+      <!-- COPY 2 MORE FOR TOTAL 4 -->
+      <div class="border border-white rounded-2xl p-6
+                   bg-white/5
+                  text-left">
+
+        <!-- Date -->
+        <span class="inline-block px-3 py-1 mb-4
+                     text-xs border border-white/40 bg-white/20 rounded-full  backdrop-blur-sm">
+          05–16, 2025
+        </span>
+
+        <!-- Title -->
+        <h3 class="text-sm font-medium mb-4 leading-snug">
+          52nd National Management Convention
+        </h3>
+
+        <!-- Location -->
+        <div class="flex items-center gap-2 text-xs text-white/80">
+          <!-- Location Icon -->
+          <svg xmlns="http://www.w3.org/2000/svg"
+               class="w-4 h-4 text-white"
+               fill="none"
+               viewBox="0 0 24 24"
+               stroke="currentColor">
+            <path stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M12 11c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2z"/>
+            <path stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M12 21s8-4.5 8-10a8 8 0 10-16 0c0 5.5 8 10 8 10z"/>
+          </svg>
+
+          <span class="text-white">Hotel Taj Palace, New Delhi</span>
+        </div>
+      </div>
+
+       <div class="border border-white rounded-2xl p-6
+                   bg-white/5
+                  text-left">
+
+        <!-- Date -->
+        <span class="inline-block px-3 py-1 mb-4
+                     text-xs border border-white/40 bg-white/20 rounded-full backdrop-blur-sm">
+          05–16, 2025
+        </span>
+
+        <!-- Title -->
+        <h3 class="text-sm font-medium mb-4 leading-snug">
+          52nd National Management Convention
+        </h3>
+
+        <!-- Location -->
+        <div class="flex items-center gap-2 text-xs text-white/80">
+          <!-- Location Icon -->
+          <svg xmlns="http://www.w3.org/2000/svg"
+               class="w-4 h-4 text-white"
+               fill="none"
+               viewBox="0 0 24 24"
+               stroke="currentColor">
+            <path stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M12 11c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2z"/>
+            <path stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M12 21s8-4.5 8-10a8 8 0 10-16 0c0 5.5 8 10 8 10z"/>
+          </svg>
+
+          <span class="text-white">Hotel Taj Palace, New Delhi</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<section class="py-20 px-4 bg-white">
+  <div class="max-w-7xl mx-auto">
+
+    <!-- Heading -->
+    <div class="flex justify-between">
+     <div>
+       <p class="text-xs text-orange-400 uppercase mb-2">
+      Building Strong Foundations
+    </p>
+
+    <h2 class="text-3xl md:text-4xl font-heading mb-12">
+      Education & <span class="text-gold">Capacity <br>Building</span>
+    </h2>
+     </div>
+    <div>
+      <button class="bg-[#0D478B] text-white rounded px-3 py-2 mt-3">View All</button>
+    </div>
+    </div>
+    <!-- Layout -->
+    <div class="grid gap-8
+                grid-cols-1
+                lg:grid-cols-4">
+
+      <!-- Cards -->
+      <div class="lg:col-span-3 grid gap-6
+                  grid-cols-1
+                  sm:grid-cols-2
+                  lg:grid-cols-3">
+
+        <!-- Card -->
+        <div class="border rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition">
+          <img src="assets/Academic_pro.jpg" class="w-full h-[265px] object-cover" />
+          <div class="p-5">
+            <h3 class="text-xl mb-2">Academic Programmes</h3>
+            <p class="text-sm text-gray-500 mb-4">
+              The standard lorem ipsum passage has been a printer’s friend.
+            </p>
+            <a href="#" class="text-sm flex items-center gap-2">
+              Learn More →
+            </a>
+          </div>
+        </div>
+
+        <div class="border rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition">
+          <img src="assets/certificate.jpg" class="w-full h-[265px] object-cover" />
+          <div class="p-5">
+            <h3 class="text-xl mb-2">Trainings & Workshops</h3>
+            <p class="text-sm text-gray-500 mb-4">
+              The standard lorem ipsum passage has been a printer’s friend.
+            </p>
+            <a href="#" class="text-sm flex items-center gap-2">
+              Learn More →
+            </a>
+          </div>
+        </div>
+
+        <div class="border rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition">
+          <img src="assets/training.jpg" class="w-full h-[265px] object-cover" />
+          <div class="p-5">
+            <h3 class="text-xl mb-2">Professional Certifications</h3>
+            <p class="text-sm text-gray-500 mb-4">
+              The standard lorem ipsum passage has been a printer’s friend.
+            </p>
+            <a href="#" class="text-sm flex items-center gap-2">
+              Learn More →
+            </a>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- All Programs Box -->
+        <div class="border rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition">
+          <img src="assets/reasearch.jpg" class="w-full h-[265px] object-cover" />
+          <div class="p-5">
+            <h3 class="text-xl mb-2">Research & Reports
+</h3>
+            <p class="text-sm text-gray-500 mb-4">
+              The standard lorem ipsum passage has been a printer’s friend.
+            </p>
+            <a href="#" class="text-sm flex items-center gap-2">
+              Learn More →
+            </a>
+          </div>
+        </div>
+
+    </div>
+  </div>
+</section>
+<!-- ===== Research & Reports ===== -->
+
+<!-- ===== Research & Reports ===== -->
+<section class="bg-[#0F4C8A] py-20">
+  <div class="max-w-7xl mx-auto px-4 text-center text-white">
+
+    <h2 class="font-heading text-3xl md:text-4xl mb-12">
+      Research & Reports
+    </h2>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+
+      <!-- Active -->
+      <div class="bg-white text-[#0F4C8A] rounded-xl p-6 flex flex-col items-center">
+        <img src="assets/icon.svg" class="w-8 h-8 mb-3" />
+        <p class="font-body text-sm font-medium">Case Catalogue</p>
+      </div>
+
+      <!-- Cards -->
+      <div class="border border-white/60 rounded-xl p-6 flex flex-col items-center hover:bg-white hover:text-[#0F4C8A] font-medium transition">
+        <img src="assets/icon.svg" class="w-8 h-8 mb-3" />
+        <p class="font-body text-sm">Case Catalogue</p>
+      </div>
+
+      <div class="border border-white/60 rounded-xl p-6 flex flex-col items-center hover:bg-white hover:text-[#0F4C8A] font-medium transition">
+        <img src="assets/icon.svg" class="w-8 h-8 mb-3" />
+        <p class="font-body text-sm">Case Catalogue</p>
+      </div>
+
+      <div class="border border-white/60 rounded-xl p-6 flex flex-col items-center hover:bg-white hover:text-[#0F4C8A] font-medium transition">
+        <img src="assets/icon.svg" class="w-8 h-8 mb-3" />
+        <p class="font-body text-sm">Case Catalogue</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+<section class="relative py-24">
+
+  <!-- Background -->
+  <img src="assets/Leadership_Deve.jpg"
+       class="absolute inset-0 w-full h-full object-cover " />
+  <div class="absolute inset-0 bg-[black/60] backdrop-blur-md"></div>
+
+  <div class="relative z-10 max-w-7xl mx-auto px-4 text-center text-white">
+
+    <p class="text-xs tracking-widest uppercase text-gold font-body mb-2">
+      From Managers to Leader
+    </p>
+
+    <h2 class="font-heading text-3xl md:text-4xl mb-14">
+      Managerial & <span class="text-gold">Leadership</span><br />
+      Development
+    </h2>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 ">
+
+      <!-- Card -->
+      <div class="bg-white rounded-xl p-6 text-left text-gray-800 text-center">
+        <img src="assets/icon.svg" class="w-8 h-8 mb-4 m-auto" />
+        <h3 class="font-[500] text-lg mb-2">International MDPs</h3>
+        <p class="font-body text-sm text-gray-600">
+          The standard lorem ipsum passage has been a printer's friend for like stock photos today, it.
+        </p>
+      </div>
+
+      <div class="bg-white rounded-xl p-6 text-left text-gray-800 text-center">
+        <img src="assets/icon.svg" class="w-8 h-8 mb-4 m-auto" />
+        <h3 class="font-[500] text-lg mb-2">Domestic MDPs</h3>
+        <p class="font-body text-sm text-gray-600">
+          The standard lorem ipsum passage has been a printer's friend for like stock photos today, it.
+        </p>
+      </div>
+
+      <div class="bg-white rounded-xl p-6 text-left text-gray-800 text-center">
+        <img src="assets/icon.svg" class="w-8 h-8 mb-4 m-auto" />
+        <h3 class="font-[500] text-lg mb-2">Case Study Contests</h3>
+        <p class="font-body text-sm text-gray-600">
+          The standard lorem ipsum passage has been a printer's friend for like stock photos today, it.
+        </p>
+      </div>
+
+      <div class="bg-white rounded-xl p-6 text-left text-gray-800 text-center">
+        <img src="assets/icon.svg" class="w-8 h-8 mb-4 m-auto" />
+        <h3 class="font-[500] text-lg mb-2">Experiential Learning</h3>
+        <p class="font-body text-sm text-gray-600">
+          The standard lorem ipsum passage has been a printer's friend for like stock photos today, it.
+        </p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ===== Experiential Learning ===== -->
+
+
+<section class="bg-white py-16">
+  <div class="max-w-7xl mx-auto px-6">
+
+    <!-- TOP ROW -->
+    <div class="grid md:grid-cols-2 gap-10 items-start">
+
+      <!-- LEFT: Heading -->
+      <h2 class="font-heading text-3xl leading-snug">
+        Experiential <span class="text-gold">Learning</span>
+      </h2>
+
+      <!-- RIGHT: Paragraph -->
+      <p class="font-body text-sm text-gray-500 leading-relaxed">
+        <span class="font-[500] text-black">Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+        Lorem Ipsum has been the industry's ever since the 1500s,</span> when an unknown
+        printer took a galley of type and scrambled it to make a type specimen book.
+        
+          when an unknown printer took a galley of type scrambled to make a type specimen book
+      
+      </p>
+
+    </div>
+
+    <!-- BOTTOM ROW -->
+    <div class="grid md:grid-cols-2 gap-10 items-center mt-10">
+
+      <!-- LEFT: Images -->
+      <div class="flex items-center gap-4">
+        <img src="assets/learn1.jpg" class="w-48 h-20 rounded-full object-cover" />
+        <img src="assets/leaen2.jpg" class="w-48 h-20 rounded-full object-cover" />
+        <img src="assets/learn3.jpg" class="w-20 h-20 rounded-full object-cover" />
+      </div>
+
+      <!-- RIGHT: Stats -->
+      <div class="grid grid-cols-3 gap-6 text-center">
+
+        <div>
+          <h3 class="font-DM Sans text-2xl">6,000+</h3>
+          <p class="text-xs text-gray-500 mt-1">
+            Corporate<br />Members
+          </p>
+        </div>
+
+        <div>
+          <h3 class="font-font-DM text-2xl">38,000+</h3>
+          <p class="text-xs text-gray-500 mt-1">
+            Members Across<br />India
+          </p>
+        </div>
+
+        <div>
+          <h3 class="font-font-DM text-2xl">68+</h3>
+          <p class="text-xs text-gray-500 mt-1">
+            Local Management<br />Associations
+          </p>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<section class="relative min-h-[600px] px-4">
+
+  <!-- Background -->
+  <div class="absolute inset-0">
+    <img src="assets/solu_bg.jpg"
+         class="w-full h-[450px] object-cover " />
+    <div class="absolute inset-0 bg-black/80 h-[450px] backdrop-blur-md"></div>
+  </div>
+
+  <!-- Content Wrapper -->
+  <div class="relative max-w-7xl mx-auto h-full flex flex-col">
+
+    <!-- Heading (TOP) -->
+    <div class="text-center pt-20 pb-10 text-white">
+      <p class="text-[10px] tracking-widest uppercase text-gold mb-2">
+        Smart Approaches for Unique Challenges
+      </p>
+
+      <h2 class="font-heading text-3xl md:text-4xl">
+        Customised <span class="text-gold">Solutions</span>
+      </h2>
+    </div>
+
+    <!-- Cards (BOTTOM aligned) -->
+    <div class="md:mt-[50px] ">
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+
+        <!-- CARD -->
+        <div class="bg-white text-black shadow-md text-left md:h-[420px]">
+          <img src="assets/solu1.jpg"
+               class="w-full h-48 object-cover" />
+
+          <div class="p-5">
+            <h3 class="font-medium mb-2">Testing & Assessment</h3>
+            <p class="text-sm text-gray-500 mb-4">
+              The standard lorem ipsum passage has been a printer’s friend for centuries.
+              Like stock photos today.
+            </p>
+
+            <a href="#" class="inline-flex items-center gap-2 text-sm">
+              Learn More
+              <span class="border w-7 h-7 flex items-center justify-center">→</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- CARD -->
+        <div class="bg-white text-black shadow-md text-left md:h-[420px]">
+          <img src="assets/solu2.jpg"
+               class="w-full h-48 object-cover" />
+
+          <div class="p-5">
+            <h3 class="font-medium mb-2">In Company Training</h3>
+            <p class="text-sm text-gray-500 mb-4">
+              The standard lorem ipsum passage has been a printer’s friend for centuries.
+              Like stock photos today.
+            </p>
+
+            <a href="#" class="inline-flex items-center gap-2 text-sm">
+              Learn More
+              <span class="border w-7 h-7 flex items-center justify-center">→</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- CARD -->
+        <div class="bg-white text-black shadow-md text-left md:h-[420px]">
+          <img src="assets/solu3.png"
+               class="w-full h-48 object-cover" />
+
+          <div class="p-5">
+            <h3 class="font-medium mb-2">Consultancy Projects</h3>
+            <p class="text-sm text-gray-500 mb-4">
+              The standard lorem ipsum passage has been a printer’s friend for centuries.
+              Like stock photos today.
+            </p>
+
+            <a href="#" class="inline-flex items-center gap-2 text-sm">
+              Learn More
+              <span class="border w-7 h-7 flex items-center justify-center">→</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- CARD -->
+        <div class="bg-white text-black shadow-md text-left h-full md:h-[420px]">
+          <img src="assets/solu4.png"
+               class="w-full h-48 object-cover" />
+
+          <div class="p-5">
+            <h3 class="font-medium mb-2">Business Simulation / BizLab</h3>
+            <p class="text-sm text-gray-500 mb-4">
+              The standard lorem ipsum passage has been a printer’s friend for centuries.
+              Like stock photos today.
+            </p>
+
+            <a href="#" class="inline-flex items-center gap-2 text-sm">
+              Learn More
+              <span class="border w-7 h-7 flex items-center justify-center">→</span>
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CONTACT US SECTION ===== -->
+<section class="bg-white py-20 px-4">
+  <div class="max-w-5xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-28">
+
+    <!-- LEFT CONTENT -->
+    <div >
+      <p class="text-[14px] tracking-widest uppercase text-gold mb-2 font-DM Sans
+
+">
+        Get in Touch
+      </p>
+
+      <h2 class="font-heading text-4xl mb-3 font-Playfair Display
+
+">
+        Contact Us
+      </h2>
+
+      <p class="text-[15px] text-gray-500 mb-10">
+        The standard lorem ipsum passage has
+      </p>
+
+      <!-- Address -->
+      <div class="flex gap-4 mb-6">
+        <div class="w-8 h-8 rounded-full bg-blue-50 flex items-center justify-center">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M16.6654 8.33073C16.6654 12.4916 12.0495 16.8249 10.4995 18.1632C10.3551 18.2718 10.1794 18.3305 9.9987 18.3305C9.81803 18.3305 9.64226 18.2718 9.49786 18.1632C7.94786 16.8249 3.33203 12.4916 3.33203 8.33073C3.33203 6.56262 4.03441 4.86693 5.28465 3.61668C6.5349 2.36644 8.23059 1.66406 9.9987 1.66406C11.7668 1.66406 13.4625 2.36644 14.7127 3.61668C15.963 4.86693 16.6654 6.56262 16.6654 8.33073Z" stroke="#0D478B" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M10 10.8359C11.3807 10.8359 12.5 9.71665 12.5 8.33594C12.5 6.95523 11.3807 5.83594 10 5.83594C8.61929 5.83594 7.5 6.95523 7.5 8.33594C7.5 9.71665 8.61929 10.8359 10 10.8359Z" stroke="#0D478B" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+
+        </div>
+        <p class="text-[15px] text-gray-600 leading-relaxed">
+          Management House, 14 Institutional Area, Lodhi Road, New Delhi – 110003
+        </p>
+      </div>
+
+      <!-- Phone -->
+      <div class="flex gap-4 mb-8">
+        <div class="w-8 h-8 rounded-full bg-blue-50 flex items-center justify-center">
+          <svg width="19" height="19" viewBox="0 0 19 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M17.4069 13.2669V15.7669C17.4079 15.999 17.3603 16.2287 17.2674 16.4414C17.1744 16.654 17.038 16.8449 16.867 17.0018C16.696 17.1587 16.4941 17.2781 16.2742 17.3525C16.0544 17.4269 15.8214 17.4545 15.5903 17.4336C13.026 17.1549 10.5628 16.2787 8.39859 14.8752C6.38512 13.5958 4.67804 11.8887 3.39859 9.87524C1.99024 7.70125 1.1138 5.22607 0.84026 2.65024C0.819435 2.4198 0.846822 2.18754 0.920677 1.96826C0.994532 1.74898 1.11324 1.54748 1.26923 1.37659C1.42523 1.2057 1.6151 1.06917 1.82675 0.975679C2.03841 0.882189 2.26721 0.833795 2.49859 0.833577H4.99859C5.40302 0.829597 5.79509 0.972809 6.10173 1.23652C6.40837 1.50023 6.60866 1.86645 6.66526 2.26691C6.77078 3.06697 6.96647 3.85252 7.24859 4.60858C7.36071 4.90685 7.38498 5.23101 7.31852 5.54264C7.25205 5.85428 7.09765 6.14034 6.87359 6.36691L5.81526 7.42524C7.00156 9.51153 8.72897 11.2389 10.8153 12.4252L11.8736 11.3669C12.1002 11.1429 12.3862 10.9885 12.6979 10.922C13.0095 10.8555 13.3337 10.8798 13.6319 10.9919C14.388 11.274 15.1735 11.4697 15.9736 11.5752C16.3784 11.6324 16.7481 11.8362 17.0124 12.1482C17.2766 12.4601 17.4171 12.8582 17.4069 13.2669Z" stroke="#0D478B" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+
+        </div>
+        <p class="text-[15px] text-gray-600">
+          011 – 24617354 | 011 – 24617354
+        </p>
+      </div>
+
+      <!-- Radio Buttons -->
+      <div class="flex items-center gap-6 text-sm text-black">
+        <label class="flex items-center gap-2">
+          <input type="radio" name="office" class="accent-blue-700 h-5 w-5 ">
+          Head Office
+        </label>
+
+        <label class="flex items-center gap-2">
+          <input type="radio" name="office" class="accent-blue-900 h-5 w-5  ">
+          Nearest Local <br> Management Association (LMA)
+        </label>
+      </div>
+    </div>
+
+    <!-- RIGHT FORM -->
+    <div class="bg-white rounded-xl shadow-lg px-11 py-5 border-2">
+      <h3 class="font-medium mb-6  font-heading text-lg">Send us a Message</h3>
+
+      <form class="space-y-5 text-sm">
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <input type="text" placeholder="First Name"
+                 class="border rounded-md px-4 py-2 w-full">
+
+          <input type="text" placeholder="Last Name"
+                 class="border rounded-md px-4 py-2 w-full">
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <input type="email" placeholder="Email"
+                 class="border rounded-md px-4 py-2 w-full">
+
+          <input type="text" placeholder="Contact Number"
+                 class="border rounded-md px-4 py-2 w-full">
+        </div>
+
+        <textarea rows="3"
+                  placeholder="How can we help?"
+                  class="border rounded-md px-4 py-2 w-full"></textarea>
+
+        <button
+          class="w-full bg-[#0D478B] text-white py-3 rounded-md text-sm">
+          Send Message
+        </button>
+
+      </form>
+    </div>
+
+  </div>
+</section>
+
+<!-- ===== SOCIAL MEDIA SECTION ===== -->
+<section class="bg-gradient-to-r from-[#0D3C7A] via-[#1A5EA8] to-[#8FA9C6] py-16 px-4">
+  <div class="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+
+    <!-- LinkedIn -->
+    <div class="bg-white rounded-xl p-6 shadow-md text-center">
+      <div class="flex items-center gap-2 mb-4">
+        <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g clip-path="url(#clip0_437_674)">
+<path d="M37.0492 0.000151475H2.95082C2.17715 -0.00772217 1.43196 0.291639 0.87875 0.832548C0.325544 1.37346 0.00951189 2.11173 0 2.88538V37.1212C0.0112321 37.8937 0.32802 38.6303 0.881039 39.1698C1.43406 39.7093 2.17827 40.0077 2.95082 39.9999H37.0492C37.8229 40.006 38.5676 39.7056 39.1205 39.1644C39.6734 38.6231 39.9896 37.885 40 37.1113V2.87554C39.9862 2.10416 39.6685 1.36941 39.1159 0.830984C38.5634 0.292558 37.8207 -0.00601951 37.0492 0.000151475Z" fill="#0076B2"/>
+<path d="M6.58135 15.228H12.2407V33.4374H6.58135V15.228ZM9.4126 6.16553C10.0617 6.16553 10.6962 6.35805 11.2359 6.71874C11.7756 7.07942 12.1961 7.59207 12.4444 8.19182C12.6926 8.79157 12.7574 9.45148 12.6306 10.0881C12.5037 10.7247 12.1909 11.3093 11.7317 11.7681C11.2725 12.2268 10.6875 12.5391 10.0508 12.6654C9.41412 12.7916 8.75427 12.7262 8.15475 12.4774C7.55524 12.2285 7.04299 11.8075 6.68282 11.2675C6.32265 10.7275 6.13073 10.0928 6.13135 9.44365C6.13218 8.57395 6.47824 7.74016 7.09351 7.12548C7.70877 6.5108 8.5429 6.16553 9.4126 6.16553ZM15.7907 15.228H21.2157V17.728H21.2907C22.047 16.2968 23.8907 14.7874 26.6439 14.7874C32.3751 14.7749 33.4376 18.5468 33.4376 23.4374V33.4374H27.7782V24.578C27.7782 22.4687 27.7407 19.753 24.8376 19.753C21.9345 19.753 21.4407 22.053 21.4407 24.4405V33.4374H15.7907V15.228Z" fill="white"/>
+</g>
+<defs>
+<clipPath id="clip0_437_674">
+<rect width="40" height="40" fill="white"/>
+</clipPath>
+</defs>
+</svg>
+
+        <span class="font-medium text-sm">LinkedIn <br> <span class="text-[#627084] text-[12px] font-[400]">@PKI_India</span></span> 
+        
+      </div>
+
+     <div class="border border-[#DAE0E7] rounded p-4 bg-[#F3F5F780] text-left text-xs text-gray-600 mb-4">
+        Join us for the upcoming workshop on sustainable procurement practices.
+        Registration is now open!
+        <div class="flex justify-between mt-3 text-[10px]">
+          
+          <div>
+<span>2 days ago</span> 
+          </div>
+          <div class="flex gap-3">
+          <span>👍 <br>24</span>
+          <span>💬 <br>5</span>
+          </div>
+          
+        </div>
+      </div>
+
+   <div class="border border-[#DAE0E7] rounded p-4 bg-[#F3F5F780] text-left text-xs text-gray-600 mb-4">
+        Join us for the upcoming workshop on sustainable procurement practices.
+        Registration is now open!
+        <div class="flex justify-between mt-3 text-[10px]">
+          
+          <div>
+<span>2 days ago</span> 
+          </div>
+          <div class="flex gap-3">
+          <span>👍 <br>24</span>
+          <span>💬 <br>5</span>
+          </div>
+          
+        </div>
+      </div>
+
+      <a href="#" class="text-blue-700 text-xs mt-4 inline-block">
+        Follow on LinkedIn ↗
+      </a>
+    </div>
+
+    <!-- Instagram -->
+    <div class="bg-white rounded-xl p-6 shadow-md text-center">
+      <div class="flex items-center  gap-2 mb-4">
+       <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M30.625 0H9.375C4.19733 0 0 4.19733 0 9.375V30.625C0 35.8027 4.19733 40 9.375 40H30.625C35.8027 40 40 35.8027 40 30.625V9.375C40 4.19733 35.8027 0 30.625 0Z" fill="url(#paint0_radial_437_679)"/>
+<path d="M30.625 0H9.375C4.19733 0 0 4.19733 0 9.375V30.625C0 35.8027 4.19733 40 9.375 40H30.625C35.8027 40 40 35.8027 40 30.625V9.375C40 4.19733 35.8027 0 30.625 0Z" fill="url(#paint1_radial_437_679)"/>
+<path d="M20.0014 4.375C15.758 4.375 15.2253 4.39359 13.5588 4.46938C11.8953 4.54563 10.7598 4.80891 9.76641 5.19531C8.73859 5.59438 7.86688 6.12828 6.99844 6.99703C6.12922 7.86562 5.59531 8.73734 5.195 9.76469C4.8075 10.7584 4.54391 11.8944 4.46906 13.557C4.39453 15.2238 4.375 15.7566 4.375 20.0002C4.375 24.2438 4.39375 24.7747 4.46938 26.4412C4.54594 28.1047 4.80922 29.2402 5.19531 30.2336C5.59469 31.2614 6.12859 32.1331 6.99734 33.0016C7.86563 33.8708 8.73734 34.4059 9.76438 34.805C10.7586 35.1914 11.8942 35.4547 13.5573 35.5309C15.2241 35.6067 15.7563 35.6253 19.9995 35.6253C24.2434 35.6253 24.7744 35.6067 26.4409 35.5309C28.1044 35.4547 29.2411 35.1914 30.2353 34.805C31.2627 34.4059 32.1331 33.8708 33.0012 33.0016C33.8705 32.1331 34.4042 31.2614 34.8047 30.2341C35.1887 29.2402 35.4525 28.1044 35.5306 26.4416C35.6055 24.775 35.625 24.2438 35.625 20.0002C35.625 15.7566 35.6055 15.2241 35.5306 13.5573C35.4525 11.8939 35.1887 10.7586 34.8047 9.76516C34.4042 8.73734 33.8705 7.86562 33.0012 6.99703C32.1322 6.12797 31.263 5.59406 30.2344 5.19547C29.2383 4.80891 28.1022 4.54547 26.4387 4.46938C24.772 4.39359 24.2414 4.375 19.9966 4.375H20.0014ZM18.5997 7.19078C19.0158 7.19016 19.48 7.19078 20.0014 7.19078C24.1734 7.19078 24.6678 7.20578 26.3153 7.28063C27.8387 7.35031 28.6656 7.60484 29.2164 7.81875C29.9456 8.10188 30.4655 8.44047 31.012 8.9875C31.5589 9.53438 31.8973 10.0552 32.1813 10.7844C32.3952 11.3344 32.65 12.1613 32.7194 13.6847C32.7942 15.3319 32.8105 15.8266 32.8105 19.9966C32.8105 24.1666 32.7942 24.6614 32.7194 26.3084C32.6497 27.8319 32.3952 28.6587 32.1813 29.2089C31.8981 29.9381 31.5589 30.4573 31.012 31.0039C30.4652 31.5508 29.9459 31.8892 29.2164 32.1725C28.6663 32.3873 27.8387 32.6413 26.3153 32.7109C24.6681 32.7858 24.1734 32.802 20.0014 32.802C15.8292 32.802 15.3347 32.7858 13.6877 32.7109C12.1642 32.6406 11.3373 32.3861 10.7861 32.1722C10.057 31.8889 9.53609 31.5505 8.98922 31.0036C8.44234 30.4567 8.10391 29.9372 7.82 29.2077C7.60609 28.6575 7.35125 27.8306 7.28188 26.3072C7.20703 24.66 7.19203 24.1653 7.19203 19.9927C7.19203 15.82 7.20703 15.328 7.28188 13.6808C7.35156 12.1573 7.60609 11.3305 7.82 10.7797C8.10328 10.0505 8.44234 9.52969 8.98938 8.98281C9.53641 8.43594 10.057 8.09734 10.7862 7.81359C11.337 7.59875 12.1642 7.34484 13.6877 7.27484C15.1291 7.20969 15.6877 7.19016 18.5997 7.18687V7.19078ZM28.342 9.78516C27.3069 9.78516 26.467 10.6242 26.467 11.6595C26.467 12.6947 27.3069 13.5345 28.342 13.5345C29.3772 13.5345 30.217 12.6947 30.217 11.6595C30.217 10.6244 29.3772 9.78453 28.342 9.78453V9.78516ZM20.0014 11.9759C15.5702 11.9759 11.9773 15.5688 11.9773 20.0002C11.9773 24.4316 15.5702 28.0227 20.0014 28.0227C24.4328 28.0227 28.0244 24.4316 28.0244 20.0002C28.0244 15.5689 24.4325 11.9759 20.0011 11.9759H20.0014ZM20.0014 14.7917C22.8778 14.7917 25.2098 17.1234 25.2098 20.0002C25.2098 22.8766 22.8778 25.2086 20.0014 25.2086C17.125 25.2086 14.7931 22.8766 14.7931 20.0002C14.7931 17.1234 17.1248 14.7917 20.0014 14.7917Z" fill="white"/>
+<defs>
+<radialGradient id="paint0_radial_437_679" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(10.625 43.0808) rotate(-90) scale(39.643 36.8711)">
+<stop stop-color="#FFDD55"/>
+<stop offset="0.1" stop-color="#FFDD55"/>
+<stop offset="0.5" stop-color="#FF543E"/>
+<stop offset="1" stop-color="#C837AB"/>
+</radialGradient>
+<radialGradient id="paint1_radial_437_679" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(-6.70016 2.88141) rotate(78.681) scale(17.7206 73.045)">
+<stop stop-color="#3771C8"/>
+<stop offset="0.128" stop-color="#3771C8"/>
+<stop offset="1" stop-color="#6600FF" stop-opacity="0"/>
+</radialGradient>
+</defs>
+</svg>
+
+
+        <span class="font-medium text-sm">Instagram <br> <span class="text-[#627084] text-[12px] font-[400]">@PKI_India</span></span>
+      </div>
+
+     <div class="border border-[#DAE0E7] rounded p-4 bg-[#F3F5F780] text-left text-xs text-gray-600 mb-4">
+        Join us for the upcoming workshop on sustainable procurement practices.
+        Registration is now open!
+        <div class="flex justify-between mt-3 text-[10px]">
+          
+          <div>
+<span>2 days ago</span> 
+          </div>
+          <div class="flex gap-3">
+          <span>👍 <br>24</span>
+          <span>💬 <br>5</span>
+          </div>
+          
+        </div>
+      </div>
+
+     <div class="border border-[#DAE0E7] rounded p-4 bg-[#F3F5F780] text-left text-xs text-gray-600 mb-4">
+        Join us for the upcoming workshop on sustainable procurement practices.
+        Registration is now open!
+        <div class="flex justify-between mt-3 text-[10px]">
+          
+          <div>
+<span>2 days ago</span> 
+          </div>
+          <div class="flex gap-3">
+          <span>👍 <br>24</span>
+          <span>💬 <br>5</span>
+          </div>
+          
+        </div>
+      </div>
+
+      <a href="#" class="text-pink-600 text-xs mt-4 inline-block">
+        Follow on Instagram ↗
+      </a>
+    </div>
+
+    <!-- Facebook -->
+    <div class="bg-white rounded-xl p-6 shadow-md text-center">
+      <div class="flex items-center  gap-2 mb-4">
+       <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="40" height="40" rx="8" fill="#0D478B"/>
+<path d="M25.0007 11.6641H22.5007C21.3956 11.6641 20.3358 12.103 19.5544 12.8845C18.773 13.6659 18.334 14.7257 18.334 15.8307V18.3307H15.834V21.6641H18.334V28.3307H21.6673V21.6641H24.1673L25.0007 18.3307H21.6673V15.8307C21.6673 15.6097 21.7551 15.3978 21.9114 15.2415C22.0677 15.0852 22.2796 14.9974 22.5007 14.9974H25.0007V11.6641Z" stroke="white" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+
+
+        <span class="font-medium text-sm">Facebook <br> <span class="text-[#627084] text-[12px] font-[400]">@PKI_India</span></span>
+      </div>
+
+      <div class="border border-[#DAE0E7] rounded p-4 bg-[#F3F5F780] text-left text-xs text-gray-600 mb-4">
+        Join us for the upcoming workshop on sustainable procurement practices.
+        Registration is now open!
+        <div class="flex justify-between mt-3 text-[10px]">
+          
+          <div>
+<span>2 days ago</span> 
+          </div>
+          <div class="flex gap-3">
+          <span>👍 <br>24</span>
+          <span>💬 <br>5</span>
+          </div>
+          
+        </div>
+      </div>
+
+      <div class="border border-[#DAE0E7] rounded p-4 bg-[#F3F5F780] text-left text-xs text-gray-600 mb-4">
+        Join us for the upcoming workshop on sustainable procurement practices.
+        Registration is now open!
+        <div class="flex justify-between mt-3 text-[10px]">
+          
+          <div>
+<span>2 days ago</span> 
+          </div>
+          <div class="flex gap-3">
+          <span>👍 <br>24</span>
+          <span>💬 <br>5</span>
+          </div>
+          
+        </div>
+      </div>
+
+      <a href="#" class="text-blue-600 text-xs mt-4 inline-block">
+        Follow on Facebook ↗
+      </a>
+    </div>
+
+  </div>
+</section>
+
+<footer class="bg-[#1f1f1f] text-white font-[Inter]">
+  <div class="max-w-7xl mx-auto px-6 py-8">
+
+    <!-- TOP GRID -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-12 mt-5">
+
+      <!-- LEFT -->
+      <div>
+        <img src="assets/footer-logo.png" alt="AIMA" class="h-10 mb-4">
+        <p class="text-sm text-gray-300 max-w-xs">
+          A platform of young leaders to shape the management destiny of the country
+        </p>
+
+        <h3 class="mt-8 text-[28px] font-medium font-DM">Get In Touch</h3>
+
+        <div class="mt-4 text-[16px] text-gray-300 space-y-3">
+          <p class="font-[400] text-white font-DM">Mansoor Hassan</p>
+          <p>Assistant Director</p>
+
+          <div class="flex items-center gap-2">
+            <span>
+              <i class="fa-solid fa-phone-volume"></i>
+</span>
+            <span>(+91) 9540060166</span>
+          </div>
+
+          <div class="flex items-center gap-2">
+            <span>
+              <i class="fa-regular fa-envelope"></i>
+            </span>
+            <span>mhassan@aima.in</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- QUICK LINKS -->
+      <div>
+        <h3 class="text-xl font-medium mb-4">Quick Links</h3>
+        <ul class="space-y-3 text-sm text-gray-300">
+          <li>About</li>
+          <li>Program & Events</li>
+          <li>Membership</li>
+          <li>Member Login</li>
+          <li>Podcast</li>
+        </ul>
+      </div>
+
+      <!-- NEWSLETTER -->
+      <div>
+        <h3 class="text-xl font-medium mb-4">Newsletter</h3>
+        <p class="text-sm text-gray-300 mb-4">
+          Sign up for our newsletter to receive special offers.
+        </p>
+
+        <div class="flex items-center bg-white rounded-full overflow-hidden max-w-sm">
+          <input
+            type="email"
+            placeholder="Enter Your Email"
+            class="flex-1 px-4 py-2 text-sm text-black outline-none"
+          />
+          <button class="bg-[#0b4ea2] h-10 w-10 flex items-center justify-center rounded-full m-1">
+            ➜
+          </button>
+        </div>
+
+        <label class="flex items-center gap-2 mt-4 text-xs text-gray-400">
+          <input type="checkbox" class="accent-white">
+          I agree with the terms & conditions
+        </label>
+      </div>
+
+    </div>
+
+    <!-- DIVIDER -->
+    <div class="border-t border-gray-600 mt-12 pt-6 flex flex-col md:flex-row items-center justify-between text-xs text-gray-400">
+
+      <p>© Copyrights 2025. All Rights Reserved.</p>
+
+      <!-- SOCIAL ICONS -->
+      <div class="flex gap-4 mt-4 md:mt-0">
+        <span class="bg-white text-black h-8 w-8 rounded-full flex items-center justify-center"><svg width="7" height="13" viewBox="0 0 7 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M6.53811 7.03049L6.90071 4.76852H4.63242V3.30065C4.63242 2.68181 4.94928 2.07859 5.96525 2.07859H6.99656V0.152838C6.99656 0.152838 6.06061 0 5.16579 0C3.29762 0 2.07661 1.08331 2.07661 3.04452V4.76852H0V7.03049H2.07661V12.4987C2.49301 12.5612 2.91977 12.5938 3.35451 12.5938C3.78926 12.5938 4.21602 12.5612 4.63242 12.4987V7.03049H6.53811Z" fill="black"/>
+</svg>
+</span>
+        <span class="bg-white text-black h-8 w-8 rounded-full flex items-center justify-center"><i class="fa-brands fa-instagram"></i></span>
+        <span class="bg-white text-black h-8 w-8 rounded-full flex items-center justify-center"><i class="fa-brands fa-tiktok"></i></span>
+        <span class="bg-white text-black h-8 w-8 rounded-full flex items-center justify-center"><svg width="13" height="14" viewBox="0 0 13 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M7.60532 5.53L12.3626 0H11.2353L7.10453 4.80162L3.80529 0H0L4.9891 7.2609L0 13.06H1.1274L5.48961 7.98928L8.97385 13.06H12.7792L7.60532 5.53ZM6.06119 7.32487L5.5557 6.60185L1.53361 0.848687H3.26523L6.5111 5.49168L7.0166 6.21469L11.2359 12.2499H9.50427L6.06119 7.32487Z" fill="black"/>
+</svg>
+</span>
+      </div>
+
+    </div>
+
+  </div>
+</footer>
+
+  
+
+
+    
+
+<script>
+  function toggleMenu() {
+    const menu = document.getElementById("mobileMenu");
+    menu.classList.toggle("hidden");
+  }
+</script>
+
+
+
+
+
+</body>
+
+</html>
